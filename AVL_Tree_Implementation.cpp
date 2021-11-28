@@ -1,5 +1,5 @@
 // C++ program to insert a node in AVL tree 
-#include<bits/stdc++.h> 
+#include<bits/stdc++.h>
 using namespace std;
 
 // An AVL tree node
