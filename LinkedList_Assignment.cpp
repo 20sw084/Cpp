@@ -30,7 +30,25 @@ bool Is_Empty()
 
 // 3.	Head: returns the first element of the linked list (first student)
 
-
+void Head(){
+    FU_Student* p = head;
+    if (p == NULL) {
+        cout << "No Record "
+             << "Available\n";
+    }
+    else {
+        cout << "Registration Number\tName\tSurname"
+             << "\tAddress\tAge\tGPA\n";
+ 
+            cout << p->S_reg_no << "    \t"
+                 << p->S_name << "\t"
+                 << p->S_surn << "\t"
+                 << p->S_addr << "\t"
+                 << p->S_age << "\t"
+                 << p->S_gpa << "\t" endl;
+        
+    }
+}
 
 // 4.	Tail: returns the original linked list without the head element (rest of the students)
 // 5.	First_Insert: inserts a new element (new student) at the beginning of your linked list
