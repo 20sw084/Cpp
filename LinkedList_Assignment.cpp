@@ -12,13 +12,26 @@ char S_addr[25];
 FU_Student *next;
     };
 
-int main()
-{
-    
+// Implement the following functions of the above application (a menu is preferable):
+
 // 1.	Cons: creates the linked list of students (new list)
-  
+
+ FU_Student* head = new FU_Student();
+
 // 2.	Is_Empty: checks whether the linked list (students) is empty or not 
+
+bool Is_Empty()
+{
+    if (head == NULL)
+        return false;
+    else
+        return true;
+}
+
 // 3.	Head: returns the first element of the linked list (first student)
+
+
+
 // 4.	Tail: returns the original linked list without the head element (rest of the students)
 // 5.	First_Insert: inserts a new element (new student) at the beginning of your linked list
 // 6.	Sort_gpa: sorts the linked list in ascending order according to students ‘s_gpa’
@@ -39,6 +52,207 @@ int main()
 // 21.	Best_student: finds and prints the name of the best student in the class 
 // 22.	Young_student: finds and prints the name of the youngest student in the class
 // 23.	Same_housing checks whether two or more students stay in the same address/house
+
+void Insert_Record(char S_surn[15,char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
+{
+    // if Record Already Exist
+    if (check(S_reg_no)) {
+        cout << "Student with this "
+             << "record Already Exists\n";
+        return;
+    }
+ 
+    // Create new FU_Student to Insert Record
+    FU_Student* t = new FU_Student();
+    t->S_surn = S_surn;
+    t->S_name = S_name;
+    t->S_reg_no = S_reg_no;
+    t->S_gpa = S_gpa;
+    t->S_age = S_age;
+    t->S_addr = S_addr;
+    t->next = NULL;
+ 
+    // Insert at Begin
+    if (head == NULL
+        || (head->S_reg_no >= t->S_reg_no)) {
+        t->next = head;
+        head = t;
+    }
+ 
+    // Insert at middle or End
+    else {
+        FU_Student* c = head;
+        while (c->next != NULL
+               && c->next->S_reg_no < t->S_reg_no) {
+            c = c->next;
+        }
+        t->next = c->next;
+        c->next = t;
+    }
+ 
+    cout << "Record Inserted "
+         << "Successfully\n";
+}
+
+
+void Search_Record(int S_reg_no)
+{
+    // if head is NULL
+    if (!head) {
+        cout << "No such Record "
+             << "Available\n";
+        return;
+    }
+ 
+    // Otherwise
+    else {
+        Node* p = head;
+        while (p) {
+            if (p->S_reg_no == S_reg_no) {
+                cout << "Student Registration Number\t"
+                     << p->S_reg_no << endl;
+                cout << "Name\t\t"
+                     << p->S_name << endl;
+                cout << "SurName\t\t"
+                     << p->S_surn << endl;
+                cout << "Address\t\t"
+                     << p->S_addr << endl;
+                cout << "Age\t"
+                     << p->S_age << endl;
+                cout << "GPA\t\t"
+                     << p->S_gpa << endl;
+                return;
+            }
+            p = p->next;
+        }
+ 
+        if (p == NULL)
+            cout << "No such Record "
+                 << "Available\n";
+    }
+}
+ 
+int Delete_Record(int S_reg_no)
+{
+    FU_Student* t = head;
+    FU_Student* p = NULL;
+ 
+    // Deletion at Begin
+    if (t != NULL
+        && t->S_reg_no == S_reg_no) {
+        head = t->next;
+        delete t;
+ 
+        cout << "Record Deleted "
+             << "Successfully\n";
+        return 0;
+    }
+ 
+    // Deletion Other than Begin
+    while (t != NULL && t->S_reg_no != S_reg_no) {
+        p = t;
+        t = t->next;
+    }
+    if (t == NULL) {
+        cout << "Record does not Exist\n";
+        return -1;
+        p->next = t->next;
+ 
+        delete t;
+        cout << "Record Deleted "
+             << "Successfully\n";
+ 
+        return 0;
+    }
+}
+ 
+void Show_Record()
+{
+    FU_Student* p = head;
+    if (p == NULL) {
+        cout << "No Record "
+             << "Available\n";
+    }
+    else {
+        cout << "Registration Number\tName\tSurname"
+             << "\tAddress\tAge\tGPA\n";
+ 
+        // Until p is not NULL
+        while (p != NULL) {
+            cout << p->S_reg_no << "    \t"
+                 << p->S_name << "\t"
+                 << p->S_surn << "\t"
+                 << p->S_addr << "\t"
+                 << p->S_age << "\t"
+                 << p->S_gpa << "\t" endl;
+            p = p->next;
+        }
+    }
+}
+
+int main()
+{
+    head = NULL;
+    char[15] S_surn,
+    char[14] S_name, 
+    int S_reg_no;
+    float S_gpa;
+    int S_age;
+    char S_addr[25];
+    
+     
+    // Menu-driven program
+    while (true) {
+        cout << "\n\t\tWelcome to Student Record "
+                "Management System\n\n\tPress\n\t1 to "
+                "create a new Record\n\t2 to delete a "
+                "student record\n\t3 to Search a Student "
+                "Record\n\t4 to view all students "
+                "record\n\t5 to Exit\n";
+        cout << "\nEnter your Choice\n";
+        int Choice;
+ 
+        // Enter Choice
+        cin >> Choice;
+        if (Choice == 1) {
+            cout << "Enter SurName of Student\n";
+            cin >> S_surn;
+            cout << "Enter Name of Student\n";
+            cin >> S_name;
+            cout << "Enter Registration Number of Student\n";
+            cin >> S_reg_no;
+            cout << "Enter GPA of Student \n";
+            cin >> S_gpa;
+            cout << "Enter Age of Student\n";
+            cin >> S_age;
+            cout << "Enter Address of Student\n";
+            cin >> S_addr;
+            Insert_Record(S_surn,S_name,S_reg_no,S_gpa,S_age,S_addr);
+        }
+        else if (Choice == 2) {
+            cout << "Enter Registration Number of Student whose "
+                    "record is to be deleted\n";
+            cin >> S_reg_no;
+            Delete_Record(S_reg_no);
+        }
+        else if (Choice == 3) {
+            cout << "Enter Registration Number of Student whose "
+                    "record you want to Search\n";
+            cin >> S_reg_no;
+            Search_Record(S_reg_no);
+        }
+        else if (Choice == 4) {
+            Show_Record();
+        }
+        else if (Choice == 5) {
+            exit(0);
+        }
+        else {
+            cout << "Invalid Choice "
+                 << "Try Again\n";
+        }
+    } 
+  
 
   
   
