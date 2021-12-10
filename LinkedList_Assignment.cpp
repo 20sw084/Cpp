@@ -424,19 +424,118 @@ void List_Append(FU_Student *list1, FU_Student **list2)
 
 // 17.	Split_list: given a list, splits it into two sublists; one for the front half and one for the back half. If the number of its elements is odd, the extra element should go in the front list
 
-
+void Split_list(FU_Student *head, FU_Student **head1_ref,
+                           FU_Student **head2_ref)
+{
+    FU_Student *slow_ptr = head;
+    FU_Student *fast_ptr = head;
+     
+    if(head == NULL)
+        return;
+     
+    /* If there are odd nodes in the circular list then
+       fast_ptr->next becomes head and for even nodes
+       fast_ptr->next->next becomes head */
+    while(fast_ptr->next != head &&
+          fast_ptr->next->next != head)
+    {
+        fast_ptr = fast_ptr->next->next;
+        slow_ptr = slow_ptr->next;
+    }
+     
+    /* If there are even elements in list
+       then move fast_ptr */
+    if(fast_ptr->next->next == head)
+        fast_ptr = fast_ptr->next;
+         
+    /* Set the head pointer of first half */
+    *head1_ref = head;
+         
+    /* Set the head pointer of second half */
+    if(head->next != head)
+        *head2_ref = slow_ptr->next;
+         
+    /* Make second half circular */
+    fast_ptr->next = slow_ptr->next;
+         
+    /* Make first half circular */
+    slow_ptr->next = head;
+}
 
 // 18.	Remove_dublicate: takes a sorted linked list in increasing order in terms of ‘s_gpa’ and deletes any duplicate nodes from the list; i.e. same name and same gpa. Ideally, the list should be traversed only once
 
-
+void Remove_dublicate(struct FU_Student* start)
+{
+    struct FU_Student *ptr1, *ptr2, *dup;
+    ptr1 = start;
+ 
+    /* Pick elements one by one */
+    while (ptr1 != NULL && ptr1->next != NULL) {
+        ptr2 = ptr1;
+ 
+        /* Compare the picked element with rest
+           of the elements */
+        while (ptr2->next != NULL) {
+            /* If duplicate then delete it */
+            if (ptr1->data == ptr2->next->data) {
+                /* sequence of steps is important here */
+                ptr2->next = ptr2->next->next;
+                delete (dup);
+            }
+            else /* This is tricky */
+                ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+    }
+}
 
 // 19.	Reverse: reverses a linked list by rearranging all the elements (iterative reverse is preferred; extra bonus will be given for this)
 
-
+void Reverse()
+    {
+        // Initialize current, previous and
+        // next pointers
+        FU_Student* current = head;
+        FU_Student *prev = NULL, *next = NULL;
+ 
+        while (current != NULL) {
+            // Store next
+            next = current->next;
+ 
+            // Reverse current node's pointer
+            current->next = prev;
+ 
+            // Move pointers one position ahead.
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
 
 // 20.	Average: finds the great point average (gpa) of the whole class
 
-
+float Average(struct FU_Student* head)
+{
+    // if head = NULL
+    if (!head)
+        return -1;
+  
+    int count = 0; // Initialize count
+    int sum = 0;
+    float avg = 0.0;
+  
+    struct Node* current = head; // Initialize current
+    while (current != NULL) {
+        count++;
+        sum += current->S_gpa;
+        current = current->next;
+    }
+  
+    // calculate average
+    avg = (double)sum / count;
+  
+    return avg;
+}
 
 // 21.	Best_student: finds and prints the name of the best student in the class 
 
