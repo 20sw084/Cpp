@@ -54,7 +54,7 @@ FU_Student* Head(){
 
 // 4.	Tail: returns the original linked list without the head element (rest of the students)
 
-void printNthFromLast(struct FU_Student* head, int n)
+void Tail(struct FU_Student* head, int n)
 {
     int len = 0, i;
     struct FU_Student* temp = head;
@@ -83,7 +83,7 @@ void printNthFromLast(struct FU_Student* head, int n)
 
 // 5.	First_Insert: inserts a new element (new student) at the beginning of your linked list
 
-void Insert_Record(char S_surn[15,char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
+void First_Insert(char S_surn[15],char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
 {
     // if Record Already Exist
     if (check(S_reg_no)) {
@@ -173,10 +173,10 @@ void insertionSort(FU_Student* headref)
 };
 // 7.	Sort_age: sorts the linked list in ascending order according to their ‘s_age’
 
-void sortGPA(FU_Student* newnode)
+void sortAge(FU_Student* newnode)
     {
         /* Special case for the head end */
-        if (sorted == NULL || sorted->S_gpa >= newnode->S_gpa) {
+        if (sorted == NULL || sorted->S_age >= newnode->S_age) {
             newnode->next = sorted;
             sorted = newnode;
         }
@@ -185,7 +185,7 @@ void sortGPA(FU_Student* newnode)
             /* Locate the node before the point of insertion
              */
             while (current->next != NULL
-                   && current->next->S_gpa < newnode->S_gpa) {
+                   && current->next->S_age < newnode->S_age) {
                 current = current->next;
             }
             newnode->next = current->next;
@@ -195,7 +195,7 @@ void sortGPA(FU_Student* newnode)
 
 // 8.	Sort_Insert: inserts a new element in your sorted linked list, its order is preserved (either gpa or age depending which one is worked out)
 // I am sorting with age.
-void sortedInsert(struct FU_Student** head, struct FU_Student* newNode)//function to insert data in sorted position
+void Sort_Insert(struct FU_Student** head, struct FU_Student* newNode)//function to insert data in sorted position
 {   
 	//If linked list is empty
 	if (*head == NULL || (*head)->S_age >= newNode->S_age)
@@ -216,7 +216,7 @@ void sortedInsert(struct FU_Student** head, struct FU_Student* newNode)//functio
 
 // 9.	Append: inserts an element (student) at the end of the linked list
 
-void addLast(struct FU_Student **head,char S_surn[15,char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
+void Append(struct FU_Student **head,char S_surn[15,char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
 {
     //create a new node
     struct FU_Student *t = malloc(sizeof(struct FU_Student));
@@ -248,7 +248,7 @@ void addLast(struct FU_Student **head,char S_surn[15,char S_name[14],int S_reg_n
 
 // 10.	Length: gives the number of elements of your linked list (no. of students)
 
-int getLength(){
+int Length(){
     struct node* temp = head;
     int count=0;
     /* Traverse the linked list and maintain the count. */
@@ -477,7 +477,7 @@ void Remove_dublicate(struct FU_Student* start)
            of the elements */
         while (ptr2->next != NULL) {
             /* If duplicate then delete it */
-            if (ptr1->data == ptr2->next->data) {
+            if (ptr1->S_reg_no == ptr2->next->S_reg_no) {
                 /* sequence of steps is important here */
                 ptr2->next = ptr2->next->next;
                 delete (dup);
@@ -539,14 +539,111 @@ float Average(struct FU_Student* head)
 
 // 21.	Best_student: finds and prints the name of the best student in the class 
 
-
+void Best_student(struct FU_Student* head)
+{
+    // Declare a max variable and initialize
+    // it with INT_MIN value.
+    // INT_MIN is integer type and its value
+    // is -32767 or less.
+    int max = INT_MIN;
+  
+    // Check loop while head not equal to NULL
+    while (head != NULL) {
+  
+        // If max is less then head->data then
+        // assign value of head->data to max
+        // otherwise node point to next node.
+        if (max < head->S_gpa)
+            max = head->S_gpa;
+        head = head->next;
+    }
+    FU_Student* p = head;
+        while (p) {
+            if (p->S_gpa == S_gpa) {
+                cout << "Student Registration Number\t"
+                     << p->S_reg_no << endl;
+                cout << "Name\t\t"
+                     << p->S_name << endl;
+                cout << "SurName\t\t"
+                     << p->S_surn << endl;
+                cout << "Address\t\t"
+                     << p->S_addr << endl;
+                cout << "Age\t"
+                     << p->S_age << endl;
+                cout << "GPA\t\t"
+                     << p->S_gpa << endl;
+            }
+            p = p->next;
+        }
+}
 
 // 22.	Young_student: finds and prints the name of the youngest student in the class
 
-
+void Young_student(struct FU_Student* head)
+{
+    // Declare a min variable and initialize
+    // it with INT_MAX value.
+    // INT_MAX is integer type and its value
+    // is 32767 or greater.
+    int min = INT_MAX;
+  
+    // Check loop while head not equal to NULL
+    while (head != NULL) {
+  
+        // If min is greater then head->data then
+        // assign value of head->data to min
+        // otherwise node point to next node.
+        if (min > head->S_age)
+            min = head->S_age;
+  
+        head = head->next;
+    }
+    FU_Student* p = head;
+        while (p) {
+            if (p->S_age == S_age) {
+                cout << "Student Registration Number\t"
+                     << p->S_reg_no << endl;
+                cout << "Name\t\t"
+                     << p->S_name << endl;
+                cout << "SurName\t\t"
+                     << p->S_surn << endl;
+                cout << "Address\t\t"
+                     << p->S_addr << endl;
+                cout << "Age\t"
+                     << p->S_age << endl;
+                cout << "GPA\t\t"
+                     << p->S_gpa << endl;
+            }
+            p = p->next;
+        }
+}
 
 // 23.	Same_housing checks whether two or more students stay in the same address/house
 
+void Same_housing(struct FU_Student* start)
+{
+    struct FU_Student *ptr1, *ptr2, *dup;
+    ptr1 = start;
+ 
+    /* Pick elements one by one */
+    while (ptr1 != NULL && ptr1->next != NULL) {
+        ptr2 = ptr1;
+ 
+        /* Compare the picked element with rest
+           of the elements */
+        while (ptr2->next != NULL) {
+            /* If duplicate then delete it */
+            if (ptr1->S_addr == ptr2->next->S_addr) {
+                /* sequence of steps is important here */
+                // ptr2->next = ptr2->next->next;
+                cout<<"Same_housing";
+            }
+            else /* This is tricky */
+                ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+    }
+}
 
 
 
@@ -589,7 +686,7 @@ int main()
             cin >> S_age;
             cout << "Enter Address of Student\n";
             cin >> S_addr;
-            Insert_Record(S_surn,S_name,S_reg_no,S_gpa,S_age,S_addr);
+            First_Insert(S_surn,S_name,S_reg_no,S_gpa,S_age,S_addr);
         }
         else if (Choice == 2) {
             cout << "Enter Registration Number of Student whose "
@@ -615,9 +712,5 @@ int main()
         }
     } 
   
-
-  
-  
-  
-    return 0;
+return 0;
 }
