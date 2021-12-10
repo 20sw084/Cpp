@@ -248,36 +248,79 @@ void addLast(struct FU_Student **head,char S_surn[15,char S_name[14],int S_reg_n
 
 // 10.	Length: gives the number of elements of your linked list (no. of students)
 
-
+int getLength(){
+    struct node* temp = head;
+    int count=0;
+    /* Traverse the linked list and maintain the count. */
+    while(temp != NULL){
+       temp = temp->next;
+       count++;
+    }
+    return count;
+}
 
 // 11.	Print_List: prints the contents of the linked list (all students)
+
+void Print_List()
+{
+    FU_Student* p = head;
+    if (p == NULL) {
+        cout << "No Record "
+             << "Available\n";
+    }
+    else {
+        cout << "Registration Number\tName\tSurname"
+             << "\tAddress\tAge\tGPA\n";
+ 
+        // Until p is not NULL
+        while (p != NULL) {
+            cout << p->S_reg_no << "    \t"
+                 << p->S_name << "\t"
+                 << p->S_surn << "\t"
+                 << p->S_addr << "\t"
+                 << p->S_age << "\t"
+                 << p->S_gpa << "\t" endl;
+            p = p->next;
+        }
+    }
+}
+
 // 12.	Copy_List: takes the linked list and returns a complete 2nd copy of this list
+
+struct FU_Student* Copy_List(struct FU_Student* h)
+{
+    if (h == NULL) {
+        return NULL;
+    }
+    else {
+        // Allocate the memory for new Node
+        // in the heap and set its data
+        struct FU_Student* newNode
+            = (struct FU_Student*)malloc(
+                sizeof(struct FU_Student));
+        newNode->data = h->data;
+        // Recursively set the next pointer of
+        // the new Node by recurring for the
+        // remaining nodes
+        newNode->next = Copy_List(h->next);
+        return newNode;
+    }
+}
+
 // 13.	Get_Nth: given the linked list and a number, returns the data, i.e. the student’s name etc, contained in the nth node of the list
-// 14.	Delete_List: takes the linked list, deallocates all of its memory and sets its head pointer to NULL (the empty list)
-// 15.	Delete_Element: deletes a specific element of the linked list given the name or the registration number of the student
-// 16.	List_Append: takes two lists, ‘a’ and ‘b’, appends ‘b’ onto the end of ‘a’, and then sets ‘b’ to NULL
-// 17.	Split_list: given a list, splits it into two sublists; one for the front half and one for the back half. If the number of its elements is odd, the extra element should go in the front list
-// 18.	Remove_dublicate: takes a sorted linked list in increasing order in terms of ‘s_gpa’ and deletes any duplicate nodes from the list; i.e. same name and same gpa. Ideally, the list should be traversed only once
-// 19.	Reverse: reverses a linked list by rearranging all the elements (iterative reverse is preferred; extra bonus will be given for this)
-// 20.	Average: finds the great point average (gpa) of the whole class
-// 21.	Best_student: finds and prints the name of the best student in the class 
-// 22.	Young_student: finds and prints the name of the youngest student in the class
-// 23.	Same_housing checks whether two or more students stay in the same address/house
 
-
-
-void Search_Record(int S_reg_no)
+FU_Student* Get_Nth(int S_reg_no)
 {
     // if head is NULL
     if (!head) {
         cout << "No such Record "
              << "Available\n";
-        return;
+        return -1;
     }
  
     // Otherwise
     else {
-        Node* p = head;
+        FU_Student* p = head;
         while (p) {
             if (p->S_reg_no == S_reg_no) {
                 cout << "Student Registration Number\t"
@@ -302,8 +345,29 @@ void Search_Record(int S_reg_no)
                  << "Available\n";
     }
 }
+
+// 14.	Delete_List: takes the linked list, deallocates all of its memory and sets its head pointer to NULL (the empty list)
+
+void Delete_List(FU_Student** head_ref)
+{
+    /* deref head_ref to get the real head */
+    FU_Student* current = *head_ref;
+    FU_Student* next = NULL;
  
-int Delete_Record(int S_reg_no)
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    /* deref head_ref to affect the real head back
+        in the caller. */
+    *head_ref = NULL;
+}
+
+// 15.	Delete_Element: deletes a specific element of the linked list given the name or the registration number of the student
+// I am deleting element with Registration Number
+void Delete_Element(int S_reg_no)
 {
     FU_Student* t = head;
     FU_Student* p = NULL;
@@ -316,7 +380,6 @@ int Delete_Record(int S_reg_no)
  
         cout << "Record Deleted "
              << "Successfully\n";
-        return 0;
     }
  
     // Deletion Other than Begin
@@ -332,34 +395,63 @@ int Delete_Record(int S_reg_no)
         delete t;
         cout << "Record Deleted "
              << "Successfully\n";
- 
-        return 0;
     }
 }
- 
-void Show_Record()
+
+// 16.	List_Append: takes two lists, ‘a’ and ‘b’, appends ‘b’ onto the end of ‘a’, and then sets ‘b’ to NULL
+
+void List_Append(FU_Student *list1, FU_Student **list2)
 {
-    FU_Student* p = head;
-    if (p == NULL) {
-        cout << "No Record "
-             << "Available\n";
-    }
-    else {
-        cout << "Registration Number\tName\tSurname"
-             << "\tAddress\tAge\tGPA\n";
+    FU_Student *list1_curr = list1, *list2_curr = *list2;
+    FU_Student *list1_next, *list2_next;
+    // While there are available positions in p
+    while (list1_curr != NULL && list2_curr != NULL)
+    {
+        // Save next pointers
+        list1_next = list1_curr->next;
+        list2_next = list2_curr->next;
  
-        // Until p is not NULL
-        while (p != NULL) {
-            cout << p->S_reg_no << "    \t"
-                 << p->S_name << "\t"
-                 << p->S_surn << "\t"
-                 << p->S_addr << "\t"
-                 << p->S_age << "\t"
-                 << p->S_gpa << "\t" endl;
-            p = p->next;
-        }
+        // Make list2_curr as next of list1_curr
+        list2_curr->next = list1_next; // Change next pointer of list2_curr
+        list1_curr->next = list2_curr; // Change next pointer of list1_curr
+ 
+        // Update current pointers for next iteration
+        list1_curr = list1_next;
+        list2_curr = list2_next;
     }
+    *list2 = NULL; // Update head pointer of second list
 }
+
+// 17.	Split_list: given a list, splits it into two sublists; one for the front half and one for the back half. If the number of its elements is odd, the extra element should go in the front list
+
+
+
+// 18.	Remove_dublicate: takes a sorted linked list in increasing order in terms of ‘s_gpa’ and deletes any duplicate nodes from the list; i.e. same name and same gpa. Ideally, the list should be traversed only once
+
+
+
+// 19.	Reverse: reverses a linked list by rearranging all the elements (iterative reverse is preferred; extra bonus will be given for this)
+
+
+
+// 20.	Average: finds the great point average (gpa) of the whole class
+
+
+
+// 21.	Best_student: finds and prints the name of the best student in the class 
+
+
+
+// 22.	Young_student: finds and prints the name of the youngest student in the class
+
+
+
+// 23.	Same_housing checks whether two or more students stay in the same address/house
+
+
+
+
+ 
 
 int main()
 {
