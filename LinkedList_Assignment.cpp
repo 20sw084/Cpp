@@ -170,7 +170,7 @@ void insertionSort(FU_Student* headref)
             current->next = newnode;
         }
     }
-};
+
 // 7.	Sort_age: sorts the linked list in ascending order according to their ‘s_age’
 
 void sortAge(FU_Student* newnode)
@@ -192,7 +192,7 @@ void sortAge(FU_Student* newnode)
             current->next = newnode;
         }
     }
-
+};
 // 8.	Sort_Insert: inserts a new element in your sorted linked list, its order is preserved (either gpa or age depending which one is worked out)
 // I am sorting with age.
 void Sort_Insert(struct FU_Student** head, struct FU_Student* newNode)//function to insert data in sorted position
@@ -657,7 +657,7 @@ int main()
     int S_reg_no;
     float S_gpa;
     int S_age;
-    char S_addr[25];
+    char[25] S_addr;
     
      
     // Menu-driven program
@@ -706,7 +706,7 @@ int main()
                  << p->S_surn << "\t"
                  << p->S_addr << "\t"
                  << p->S_age << "\t"
-                 << p->S_gpa << "\t" endl;
+                 << p->S_gpa << "\t"<< endl;
         }
         else if (Choice == 4) {
             Print_List();
