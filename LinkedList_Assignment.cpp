@@ -692,16 +692,24 @@ int main()
             cout << "Enter Registration Number of Student whose "
                     "record is to be deleted\n";
             cin >> S_reg_no;
-            Delete_Record(S_reg_no);
+            Delete_Element(S_reg_no);
         }
         else if (Choice == 3) {
             cout << "Enter Registration Number of Student whose "
                     "record you want to Search\n";
             cin >> S_reg_no;
-            Search_Record(S_reg_no);
+            FU_Student* p= Get_Nth(S_reg_no);
+            cout << "Registration Number\tName\tSurname"
+             << "\tAddress\tAge\tGPA\n";
+             cout << p->S_reg_no << "    \t"
+                 << p->S_name << "\t"
+                 << p->S_surn << "\t"
+                 << p->S_addr << "\t"
+                 << p->S_age << "\t"
+                 << p->S_gpa << "\t" endl;
         }
         else if (Choice == 4) {
-            Show_Record();
+            Print_List();
         }
         else if (Choice == 5) {
             exit(0);
