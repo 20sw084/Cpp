@@ -86,11 +86,11 @@ void Tail(struct FU_Student* head, int n)
 void First_Insert(char S_surn[15],char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
 {
     // if Record Already Exist
-    if (check(S_reg_no)) {
-        cout << "Student with this "
-             << "record Already Exists\n";
-        return;
-    }
+    // if (check(S_reg_no)) {
+    //     cout << "Student with this "
+    //          << "record Already Exists\n";
+    //     return;
+    // }
  
     // Create new FU_Student to Insert Record
     FU_Student* t = new FU_Student();
