@@ -35,7 +35,7 @@ FU_Student* Head(){
     if (p == NULL) {
         cout << "No Record "
              << "Available\n";
-             return -1;
+             return p;
     }
     else {
         cout << "Registration Number\tName\tSurname"
@@ -76,7 +76,7 @@ void Tail(struct FU_Student* head, int n)
     for (i = 1; i < len - n + 1; i++)
         temp = temp->next;
   
-    cout << temp->data;
+    cout << temp->S_reg_no;
   
     return;
 }
