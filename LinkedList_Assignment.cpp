@@ -1,8 +1,10 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 
 struct FU_Student
     {
+public:
 char S_surn[15];
 char S_name[14];
 int S_reg_no;
@@ -206,7 +208,7 @@ void Sort_Insert(struct FU_Student** head, struct FU_Student* newNode)//function
 	}
 
 	//Locate the node before insertion
-	struct node* current = *head;
+	struct FU_Student* current = *head;
 	while (current->next != NULL && current->next->S_age < newNode->S_age)
 		current = current->next;
 
@@ -216,7 +218,7 @@ void Sort_Insert(struct FU_Student** head, struct FU_Student* newNode)//function
 
 // 9.	Append: inserts an element (student) at the end of the linked list
 
-void Append(struct FU_Student **head,char S_surn[15,char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
+void Append(struct FU_Student **head,char S_surn[15],char S_name[14],int S_reg_no,float S_gpa,int S_age,char S_addr[25])
 {
     //create a new node
     struct FU_Student *t = malloc(sizeof(struct FU_Student));
@@ -249,7 +251,7 @@ void Append(struct FU_Student **head,char S_surn[15,char S_name[14],int S_reg_no
 // 10.	Length: gives the number of elements of your linked list (no. of students)
 
 int Length(){
-    struct node* temp = head;
+    struct FU_Student* temp = head;
     int count=0;
     /* Traverse the linked list and maintain the count. */
     while(temp != NULL){
@@ -274,12 +276,12 @@ void Print_List()
  
         // Until p is not NULL
         while (p != NULL) {
-            cout << p->S_reg_no << "    \t"
+            cout << p->S_reg_no << "\t"
                  << p->S_name << "\t"
                  << p->S_surn << "\t"
                  << p->S_addr << "\t"
                  << p->S_age << "\t"
-                 << p->S_gpa << "\t" endl;
+                 << p->S_gpa << "\t"<<endl;
             p = p->next;
         }
     }
@@ -298,7 +300,7 @@ struct FU_Student* Copy_List(struct FU_Student* h)
         struct FU_Student* newNode
             = (struct FU_Student*)malloc(
                 sizeof(struct FU_Student));
-        newNode->data = h->data;
+        newNode->S_reg_no = h->S_reg_no;
         // Recursively set the next pointer of
         // the new Node by recurring for the
         // remaining nodes
@@ -315,7 +317,7 @@ FU_Student* Get_Nth(int S_reg_no)
     if (!head) {
         cout << "No such Record "
              << "Available\n";
-        return -1;
+        return NULL;
     }
  
     // Otherwise
@@ -335,7 +337,7 @@ FU_Student* Get_Nth(int S_reg_no)
                      << p->S_age << endl;
                 cout << "GPA\t\t"
                      << p->S_gpa << endl;
-                return;
+                return NULL;
             }
             p = p->next;
         }
@@ -389,7 +391,6 @@ void Delete_Element(int S_reg_no)
     }
     if (t == NULL) {
         cout << "Record does not Exist\n";
-        return -1;
         p->next = t->next;
  
         delete t;
@@ -524,7 +525,7 @@ float Average(struct FU_Student* head)
     int sum = 0;
     float avg = 0.0;
   
-    struct Node* current = head; // Initialize current
+    struct FU_Student* current = head; // Initialize current
     while (current != NULL) {
         count++;
         sum += current->S_gpa;
