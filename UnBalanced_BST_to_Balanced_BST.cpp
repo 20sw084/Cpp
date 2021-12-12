@@ -3,15 +3,15 @@
 #include <bits/stdc++.h>
 using namespace std;
  
-struct Node
+struct T
 {
     int data;
-    Node* left,  *right;
+    T* left,  *right;
 };
- 
+
 /* This function traverse the skewed binary tree and
    stores its nodes pointers in vector nodes[] */
-void storeBSTNodes(Node* root, vector<Node*> &nodes)
+void storeBSTTree(T* root, vector<T*> &nodes)
 {
     // Base case
     if (root==NULL)
@@ -19,13 +19,13 @@ void storeBSTNodes(Node* root, vector<Node*> &nodes)
  
     // Store nodes in Inorder (which is sorted
     // order for BST)
-    storeBSTNodes(root->left, nodes);
+    storeBSTTree(root->left, nodes);
     nodes.push_back(root);
-    storeBSTNodes(root->right, nodes);
+    storeBSTTree(root->right, nodes);
 }
  
 /* Recursive function to construct binary tree */
-Node* buildTreeUtil(vector<Node*> &nodes, int start,
+T* buildTreeUtil(vector<T*> &nodes, int start,
                    int end)
 {
     // base case
@@ -34,7 +34,7 @@ Node* buildTreeUtil(vector<Node*> &nodes, int start,
  
     /* Get the middle element and make it root */
     int mid = (start + end)/2;
-    Node *root = nodes[mid];
+    T *root = nodes[mid];
  
     /* Using index in Inorder traversal, construct
        left and right subtress */
@@ -46,11 +46,11 @@ Node* buildTreeUtil(vector<Node*> &nodes, int start,
  
 // This functions converts an unbalanced BST to
 // a balanced BST
-Node* buildTree(Node* root)
+T* buildTree(T* root)
 {
     // Store nodes of given BST in sorted order
-    vector<Node *> nodes;
-    storeBSTNodes(root, nodes);
+    vector<T *> nodes;
+    storeBSTTree(root, nodes);
  
     // Constructs BST from nodes[]
     int n = nodes.size();
@@ -58,16 +58,16 @@ Node* buildTree(Node* root)
 }
  
 // Utility function to create a new node
-Node* newNode(int data)
+T* newNode(int data)
 {
-    Node* node = new Node;
+    T* node = new T;
     node->data = data;
     node->left = node->right = NULL;
     return (node);
 }
  
 /* Function to do preorder traversal of tree */
-void preOrder(Node* node)
+void preOrder(T* node)
 {
     if (node == NULL)
         return;
@@ -90,7 +90,7 @@ int main()
          /
         5   */
  
-    Node* root = newNode(10);
+    T* root = newNode(10);
     root->left = newNode(8);
     root->left->left = newNode(7);
     root->left->left->left = newNode(6);
