@@ -1,4 +1,3 @@
-// C code to implement IP forwarding table lookup
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -79,7 +78,7 @@ void insert(char net[M][N], char mask[M][N],
 			char buf[M][N])
 {
 	char *temp1, *temp2, *temp3, *temp4;
-	struct node* new;
+	struct node* newone;
 
 	for (int i = 0; i < M; i++) {
 
@@ -96,11 +95,11 @@ void insert(char net[M][N], char mask[M][N],
 			// and store network id into it.
 			if (head[i] == NULL) {
 
-				new = (struct node*)malloc(
+				newone = (struct node*)malloc(
 					sizeof(struct node));
-				new->data = net[i];
-				new->next = NULL;
-				head[i] = new;
+				newone->data = net[i];
+				newone->next = NULL;
+				head[i] = newone;
 			}
 
 			// If head is not null
@@ -109,11 +108,11 @@ void insert(char net[M][N], char mask[M][N],
 			// will contain subnet mask
 			else if (j == 1) {
 
-				new->next = (struct node*)malloc(
+				newone->next = (struct node*)malloc(
 					sizeof(struct node));
-				new = new->next;
-				new->data = mask[i];
-				new->next = NULL;
+				newone = newone->next;
+				newone->data = mask[i];
+				newone->next = NULL;
 			}
 
 			// If head is not null and value of j is 2
@@ -122,10 +121,10 @@ void insert(char net[M][N], char mask[M][N],
 			// and it will contain gateway
 			else if (j == 2) {
 
-				new->next = (struct node*)malloc(
+				newone->next = (struct node*)malloc(
 					sizeof(struct node));
-				new = new->next;
-				new->data = gateway[i];
+				newone = newone->next;
+				newone->data = gateway[i];
 			}
 
 			// If head is not null and value of j is 3
@@ -134,10 +133,10 @@ void insert(char net[M][N], char mask[M][N],
 			// it will contain port
 			else if (j == 3) {
 
-				new->next = (struct node*)malloc(
+				newone->next = (struct node*)malloc(
 					sizeof(struct node));
-				new = new->next;
-				new->data = port[i];
+				newone = newone->next;
+				newone->data = port[i];
 			}
 		}
 	}
