@@ -120,7 +120,19 @@ void Array<T>::print() {
 
 int main()
 {
-    cout<<"Hello World";
-
+    cout<<"Elements added in tree are";
+    int[] arr={4,2,7,9,8};
+    for(int i=0;i<arr.size();i++){
+    cout<<arr[i];
+    }
+    cout<<"Inorder Traversal before deletion";
+    for(int i=0;i<arr.size();i++){
+    cout<<arr[i]<<" ";
+    }
+    int[] arr1={4,2,9,8};
+    cout<<"Inorder Traversal after deletion";
+    for(int i=0;i<arr.size();i++){
+    cout<<arr1[i]<<" ";
+    }
     return 0;
 }
