@@ -1,3 +1,5 @@
+//implement a generic binary data structure using an array as the internal data storage. Your binary tree must adhere the following interface, at a minimum
+
 #include <iostream>
 #include<stack>
 using namespace std;
