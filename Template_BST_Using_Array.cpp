@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include<stack>
 using namespace std;
 
 template<class T>
@@ -40,7 +40,7 @@ BinaryTree<T>::BinaryTree( )
 }
 
 // Add a new element to the BST
-public void add(int element)
+void add(int element)
 {
   boolean done = false;
   IntBTNode cursor = root;
@@ -69,7 +69,7 @@ public void add(int element)
 }
 
 // Remove an element from the BST
-public boolean remove(int target)
+bool remove(int target)
 {
   IntBTNode cursor = root, parent = null;
   while (true) {
@@ -101,6 +101,20 @@ public boolean remove(int target)
   }
 }
 
+template <class T>
+Array<T>::Array(T arr[], int s) {
+    ptr = new T[s];
+    size = s;
+    for(int i = 0; i < size; i++)
+        ptr[i] = arr[i];
+}
+ 
+template <class T>
+void Array<T>::print() {
+    for (int i = 0; i < size; i++)
+        cout<<" "<<*(ptr + i);
+    cout<<endl;
+}
 
 int main()
 {
